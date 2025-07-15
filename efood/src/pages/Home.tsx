@@ -1,10 +1,10 @@
 import React from 'react'
-import Header from '../components/Header'
 import RestaurantList from '../components/RestaurantList'
+import HeaderHero from '../components/Header/HeaderHero'
 
 const Home: React.FC = () => (
     <>
-        <Header />
+        <HeaderHero />
         <RestaurantList />
     </>
 )
