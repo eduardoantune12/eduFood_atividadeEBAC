@@ -1,17 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../store/store'
-import { removeFromCart } from '../../store/cartSlice'
-import * as S from './styles'
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { removeFromCart } from '../../store/cartSlice';
+import * as S from './styles';
 
 type Props = {
     onClose: () => void
+    onContinuar: () => void;
 }
 
-const CarrinhoSidebar = ({ onClose }: Props) => {
-    const cartItems = useSelector((state: RootState) => state.cart.items)
-    const dispatch = useDispatch()
-
-    const total = cartItems.reduce((sum, item) => sum + item.preco, 0)
+const CarrinhoSidebar = ({ onClose, onContinuar }: Props) => {
+    const cartItems = useSelector((state: RootState) => state.cart.items);
+    const dispatch = useDispatch();
+    const total = cartItems.reduce((sum, item) => sum + item.preco, 0);
 
     return (
         <S.Overlay onClick={onClose}>
@@ -32,12 +33,12 @@ const CarrinhoSidebar = ({ onClose }: Props) => {
                     <span>Valor total</span>
                     <strong>R$ {total.toFixed(2)}</strong>
                 </S.Total>
-                <S.Confirmar>
+                <S.Confirmar onClick={onContinuar}>
                     Continuar com a entrega
                 </S.Confirmar>
             </S.Sidebar>
         </S.Overlay>
-    )
-}
+    );
+};
 
-export default CarrinhoSidebar
+export default CarrinhoSidebar;

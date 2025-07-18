@@ -23,6 +23,7 @@ export const Sidebar = styled.aside`
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
+  font-family: Roboto, sans-serif;
 `
 
 export const Item = styled.div`

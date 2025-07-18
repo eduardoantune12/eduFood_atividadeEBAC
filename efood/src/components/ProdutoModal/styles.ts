@@ -33,7 +33,7 @@ export const Info = styled.div`
 margin-left: 32px;
 display: flex;
 flex-direction: column;
-justify-content: space-between;
+/* justify-content: space-between; */
 `
 
 export const Titulo = styled.h3`

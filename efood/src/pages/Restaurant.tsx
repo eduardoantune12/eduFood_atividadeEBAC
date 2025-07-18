@@ -1,6 +1,5 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import HeaderRestaurant from '../components/HeaderRestaurant'
 import Footer from '../components/Footer/Footer'
 import ApresentacaoBanner from '../components/ApresentacaoBanner'
 import ProdutoCard from '../components/ProdutoCard'
@@ -45,7 +44,6 @@ const Restaurant: React.FC = () => {
 
   return (
     <>
-      <HeaderRestaurant />
       <ApresentacaoBanner
         nome={restauranteSelecionado.name}
         tipo={restauranteSelecionado.type}
