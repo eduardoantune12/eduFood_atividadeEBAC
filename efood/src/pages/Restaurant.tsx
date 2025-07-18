@@ -4,7 +4,7 @@ import Footer from '../components/Footer/Footer'
 import ApresentacaoBanner from '../components/ApresentacaoBanner'
 import ProdutoCard from '../components/ProdutoCard'
 import { useState } from 'react'
-import ProdutoModal  from '../components/ProdutoModal'
+import ProdutoModal from '../components/ProdutoModal'
 import massasImg from '../assets/images/macarraoDelicia.svg'
 import pizzaImg from '../assets/images/pizzaMarguerita.svg'
 
@@ -35,40 +35,39 @@ const Restaurant: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false)
   const abrirModal = () => setModalOpen(true)
   const fecharModal = () => setModalOpen(false)
-  
   const restauranteSelecionado = restaurantes.find((r) => r.id === id)
 
-  if (!restauranteSelecionado) {
+      if (!restauranteSelecionado) {
     return <p>Restaurante não encontrado</p>
   }
 
-  return (
-    <>
-      <ApresentacaoBanner
-        nome={restauranteSelecionado.name}
-        tipo={restauranteSelecionado.type}
-        imagem={restauranteSelecionado.image}
-      />
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '32px',
-        padding: '40px 170px'
-      }}>
-        {Array(6).fill(0).map((_, i) => (
-          <ProdutoCard
-            key={i}
-            imagem={pizzaImg}
-            titulo="Pizza Marguerita"
-            descricao="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
-            onClick={abrirModal}
-          />
-        ))}
-      </div>
+      return (
+      <>
+        <ApresentacaoBanner
+          nome={restauranteSelecionado.name}
+          tipo={restauranteSelecionado.type}
+          imagem={restauranteSelecionado.image}
+        />
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gap: '32px',
+          padding: '40px 170px'
+        }}>
+          {Array(6).fill(0).map((_, i) => (
+            <ProdutoCard
+              key={i}
+              imagem={pizzaImg}
+              titulo="Pizza Marguerita"
+              descricao="A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!"
+              onClick={abrirModal}
+            />
+          ))}
+        </div>
         {isModalOpen && <ProdutoModal onClose={fecharModal} />}
-      <Footer />
-    </>
-  )
+        <Footer />
+      </>
+      )
 }
 
-export default Restaurant
+      export default Restaurant

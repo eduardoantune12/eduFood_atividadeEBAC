@@ -3,9 +3,10 @@ import * as S from './styles'
 
 type Props = {
     onClose: () => void
+    onContinuar: () => void
 }
 
-const FormEntrega: React.FC<Props> = ({ onClose }) => {
+const FormEntrega: React.FC<Props> = ({ onClose, onContinuar }) => {
     const [nomeRecebedor, setNomeRecebedor] = useState('')
     const [endereco, setEndereco] = useState('')
     const [cep, setCep] = useState('')
@@ -13,9 +14,18 @@ const FormEntrega: React.FC<Props> = ({ onClose }) => {
     const [complemento, setComplemento] = useState('')
     const [numero, setNumero] = useState('')
 
+    function camposValidos() {
+        return (
+            nomeRecebedor.trim() !== '' &&
+            endereco.trim() !== '' &&
+            cep.trim() !== '' &&
+            cidade.trim() !== '' &&
+            numero.trim() !== ''
+        )
+    }
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        // Lógica de envio...
     }
 
     return (
@@ -73,7 +83,16 @@ const FormEntrega: React.FC<Props> = ({ onClose }) => {
                             onChange={e => setComplemento(e.target.value)}
                         />
                     </S.Campo>
-                    <S.Botao type="submit">Continuar com a entrega</S.Botao>
+                    <S.Botao type="submit" onClick={() => {
+                        if (camposValidos()) {
+                            onContinuar()
+                        } else {
+                            alert('Preencha todos os campos obrigatórios!')
+                        }
+                    }}
+                    >
+                        Continuar com a entrega
+                    </S.Botao>
                     <S.BotaoSecundario type="button" onClick={onClose}>
                         Voltar para o carrinho
                     </S.BotaoSecundario>

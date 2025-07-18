@@ -9,7 +9,7 @@ import FeaturedRestaurantCard from './FeaturedRestaurantCard'
 import massasImg from '../../assets/images/macarraoDelicia.svg'
 import starImg from '../../assets/images/estrela.svg'
 
-const restaurants = [
+export const restaurants = [
     {
         id: 2,
         name: 'La Dolce Vita Trattoria',

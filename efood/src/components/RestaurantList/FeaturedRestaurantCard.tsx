@@ -7,10 +7,10 @@ import {
 import sushiImg from '../../assets/images/sushi.svg'
 import starImg from '../../assets/images/estrela.svg'
 
-const FeaturedRestaurantCard: React.FC = () => {
+export const FeaturedRestaurantCard: React.FC = () => {
     const navigate = useNavigate()
 
-    const restaurants = {
+    const sushiData = {
         id: 1,
         name: 'Hioki Sushi',
         description: 'Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida.Experimente o Japão sem sair do lar com nosso delivery!',
@@ -18,22 +18,22 @@ const FeaturedRestaurantCard: React.FC = () => {
         image: sushiImg
     }
     return (
-    <Card>
-        <CardImage src={restaurants.image} alt={restaurants.name} />
-        <CardTypes>
-            <CardType>Destaque da semana</CardType>
-            <CardType>Japonesa</CardType>
-        </CardTypes>
-        <CardHeader>
-            <CardTitle>{restaurants.name}</CardTitle>
-            <CardStars>
-                <RatingNumber>{restaurants.rating.toFixed(1)}</RatingNumber>
-                <StarImage src={starImg} alt="Estrela" />
-            </CardStars>
-        </CardHeader>
-        <Description>{restaurants.description}</Description>
-        <CardButton onClick={() => navigate(`/restaurant/${restaurants.id}`)}>Saiba mais</CardButton>
-    </Card>
+        <Card>
+            <CardImage src={sushiData.image} alt={sushiData.name} />
+            <CardTypes>
+                <CardType>Destaque da semana</CardType>
+                <CardType>Japonesa</CardType>
+            </CardTypes>
+            <CardHeader>
+                <CardTitle>{sushiData.name}</CardTitle>
+                <CardStars>
+                    <RatingNumber>{sushiData.rating.toFixed(1)}</RatingNumber>
+                    <StarImage src={starImg} alt="Estrela" />
+                </CardStars>
+            </CardHeader>
+            <Description>{sushiData.description}</Description>
+            <CardButton onClick={() => navigate(`/restaurant/${sushiData.id}`)}>Saiba mais</CardButton>
+        </Card>
     )
 }
 export default FeaturedRestaurantCard
