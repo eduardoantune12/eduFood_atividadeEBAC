@@ -1,18 +1,18 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  width: 100%;
-  margin-left: 222px;
+  max-width: 100%;
+  margin-left: 342px;
   margin-right: 172px;
 `
 
 export const ListWrapper = styled.section`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 4px;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1px;
   row-gap: 48px;
   justify-content: center;
-  padding: 40px 0;
+  padding: 80px 0;
   background: #fff;
 `
 
@@ -25,7 +25,6 @@ export const Card = styled.div`
   align-items: flex-start;
   position: relative;
   overflow: hidden;
-  border-radius: 0px;
   font-family: Roboto;
 `
 
