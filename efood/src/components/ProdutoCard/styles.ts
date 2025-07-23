@@ -8,21 +8,21 @@ export const Card = styled.div`
   padding: 8px;
   display: flex;
   flex-direction: column;
-  align-items: center;
 `
 
 export const Imagem = styled.img`
   width: 304px;
   height: 167px;
   object-fit: cover;
+  margin-left: 8px;
 `
 
 export const Titulo = styled.h3`
   font-family: 'Roboto', sans-serif;
   font-weight: 900;
   font-size: 16px;
+  margin-left: 8px;
   color: #ffebd9;
-  margin-top: 8px;
 `
 
 export const Descricao = styled.p`
@@ -32,12 +32,13 @@ export const Descricao = styled.p`
   line-height: 22px;
   color: #ffebd9;
   margin: 8px 0;
-  padding: 0 8px;
-  text-align: center;
+  margin-left: 8px;
+  max-width: 304px;
 `
 
 export const Botao = styled.button`
   width: 304px;
+  margin-bottom: 8px;
   height: 24px;
   background-color: #ffebd9;
   color: #e66767;

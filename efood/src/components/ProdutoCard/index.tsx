@@ -13,7 +13,7 @@ const ProdutoCard = ({ imagem, titulo, descricao, onClick }: Props) => {
       <S.Imagem src={imagem} alt={titulo} />
       <S.Titulo>{titulo}</S.Titulo>
       <S.Descricao>{descricao}</S.Descricao>
-      <S.Botao onClick={onClick}>Mais Detalhes</S.Botao>
+      <S.Botao onClick={onClick}>Adicionar ao carrinho</S.Botao>
     </S.Card>
   )
 }
