@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
     Container, ListWrapper, Card, CardImage, CardType, CardHeader,
@@ -6,81 +6,56 @@ import {
     CardTypes
 } from './styles'
 import FeaturedRestaurantCard from './FeaturedRestaurantCard'
-import massasImg from '../../assets/images/macarraoDelicia.svg'
 import starImg from '../../assets/images/estrela.svg'
+import ProdutoModal from '../ProdutoModal'
 
-export const restaurants = [
-    {
-        id: 2,
-        name: 'La Dolce Vita Trattoria',
-        type: 'Italiana',
-        description: 'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-        rating: 4.9,
-        image: massasImg
-    },
-    {
-        id: 3,
-        name: 'La Dolce Vita Trattoria',
-        type: 'Italiana',
-        description: 'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-        rating: 4.6,
-        image: massasImg
-    },
-    {
-        id: 4,
-        name: 'La Dolce Vita Trattoria',
-        type: 'Italiana',
-        description: 'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-        rating: 4.6,
-        image: massasImg
-    },
-    {
-        id: 5,
-        name: 'La Dolce Vita Trattoria',
-        type: 'Italiana',
-        description: 'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-        rating: 4.6,
-        image: massasImg
-    },
-    {
-        id: 6,
-        name: 'La Dolce Vita Trattoria',
-        type: 'Italiana',
-        description: 'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-        rating: 4.6,
-        image: massasImg
-    }
-]
+interface Restaurante {
+    id: number
+    titulo: string
+    tipo: string
+    descricao: string
+    avaliacao: number
+    capa: string
+}
 
-const RestaurantList: React.FC = () => {
+interface Props {
+    restaurantes: Restaurante[]
+}
+
+const RestaurantList: React.FC<Props> = ({ restaurantes }) => {
     const navigate = useNavigate()
+
+    const [modalAberta, setModalAberta] = useState(false)
+    const [idSelecionado, setIdSelecionado] = useState<number | null>(null)
 
     return (
         <Container>
             <ListWrapper>
-                <FeaturedRestaurantCard />
-                {restaurants.map((restaurant) => (
+                {restaurantes.length > 0 && (
+                    <FeaturedRestaurantCard restaurante={restaurantes[0]} />
+                )}
+                {restaurantes.slice(1).map((restaurant) => (
                     <Card key={restaurant.id}>
-                        <CardImage src={restaurant.image} alt={restaurant.name} />
+                        <CardImage src={restaurant.capa} alt={restaurant.titulo} />
                         <CardTypes>
-                            <CardType>{restaurant.type}</CardType>
+                            <CardType>{restaurant.tipo}</CardType>
                         </CardTypes>
                         <CardHeader>
-                            <CardTitle>{restaurant.name}</CardTitle>
+                            <CardTitle>{restaurant.titulo}</CardTitle>
                             <CardStars>
                                 <StarImage src={starImg} alt="Estrela" />
-                                <RatingNumber>{restaurant.rating.toFixed(1)}</RatingNumber>
+                                <RatingNumber>{restaurant.avaliacao.toFixed(1)}</RatingNumber>
                             </CardStars>
                         </CardHeader>
-                        <Description>{restaurant.description}</Description>
+                        <Description>{restaurant.descricao}</Description>
                         <CardButton
-                            onClick={() => navigate(`/restaurant/${restaurant.id}`)}
-                        >
+                            onClick={() => navigate(`/restaurant/${restaurant.id}`)}>
                             Saiba mais
                         </CardButton>
                     </Card>
                 ))}
             </ListWrapper>
+
         </Container>
     )
 }

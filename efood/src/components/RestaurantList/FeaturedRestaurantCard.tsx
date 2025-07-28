@@ -4,36 +4,42 @@ import {
     Card, CardImage, CardTypes, CardType, CardHeader, CardTitle,
     CardStars, StarImage, RatingNumber, Description, CardButton
 } from './styles'
-import sushiImg from '../../assets/images/sushi.svg'
 import starImg from '../../assets/images/estrela.svg'
 
-export const FeaturedRestaurantCard: React.FC = () => {
+interface Props {
+    restaurante: {
+        id: number
+        titulo: string
+        descricao: string
+        avaliacao: number
+        capa: string
+        tipo: string
+    }
+}
+
+const FeaturedRestaurantCard: React.FC<Props> = ({ restaurante }) => {
     const navigate = useNavigate()
 
-    const sushiData = {
-        id: 1,
-        name: 'Hioki Sushi',
-        description: 'Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida.Experimente o Japão sem sair do lar com nosso delivery!',
-        rating: 4.9,
-        image: sushiImg
-    }
     return (
         <Card>
-            <CardImage src={sushiData.image} alt={sushiData.name} />
+            <CardImage src={restaurante.capa} alt={restaurante.titulo} />
             <CardTypes>
                 <CardType>Destaque da semana</CardType>
-                <CardType>Japonesa</CardType>
+                <CardType>{restaurante.tipo}</CardType>
             </CardTypes>
             <CardHeader>
-                <CardTitle>{sushiData.name}</CardTitle>
+                <CardTitle>{restaurante.titulo}</CardTitle>
                 <CardStars>
-                    <RatingNumber>{sushiData.rating.toFixed(1)}</RatingNumber>
+                    <RatingNumber>{restaurante.avaliacao.toFixed(1)}</RatingNumber>
                     <StarImage src={starImg} alt="Estrela" />
                 </CardStars>
             </CardHeader>
-            <Description>{sushiData.description}</Description>
-            <CardButton onClick={() => navigate(`/restaurant/${sushiData.id}`)}>Saiba mais</CardButton>
+            <Description>{restaurante.descricao}</Description>
+            <CardButton onClick={() => navigate(`/restaurant/${restaurante.id}`)}>
+                Saiba mais
+            </CardButton>
         </Card>
     )
 }
+
 export default FeaturedRestaurantCard

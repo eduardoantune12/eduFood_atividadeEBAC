@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import Home from './pages/Home'
+import Home from './pages/Home/home'
 import Restaurant from './pages/Restaurant'
 import HeaderHome from './components/Header/HeaderHero'
 import HeaderRestaurant from './components/HeaderRestaurant'

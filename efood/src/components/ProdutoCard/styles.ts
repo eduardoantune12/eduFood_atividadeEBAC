@@ -34,6 +34,10 @@ export const Descricao = styled.p`
   margin: 8px 0;
   margin-left: 8px;
   max-width: 304px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `
 
 export const Botao = styled.button`
