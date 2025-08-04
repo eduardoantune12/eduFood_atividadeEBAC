@@ -28,11 +28,10 @@ const Home: React.FC = () => {
     const [restaurantes, setRestaurantes] = useState<RestauranteAPI[]>([])
 
     useEffect(() => {
-        fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
+        fetch('https://ebac-fake-api.vercel.app/api/efood/restaurantes')
             .then((res) => res.json())
             .then((dados) => setRestaurantes(dados))
     }, [])
-
     return (
         <>
             <RestaurantList restaurantes={restaurantes} />

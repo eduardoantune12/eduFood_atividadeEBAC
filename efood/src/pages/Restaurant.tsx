@@ -13,7 +13,7 @@ const Restaurant: React.FC = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
+      fetch(`https://ebac-fake-api.vercel.app/api/efood/restaurantes/${id}`)
         .then((res) => res.json())
         .then((data) => setRestaurante(data))
     }
