@@ -5,10 +5,10 @@ import Home from './pages/Home/home'
 import Restaurant from './pages/Restaurant'
 import HeaderHome from './components/Header/HeaderHero'
 import HeaderRestaurant from './components/HeaderRestaurant'
-import PedidoSidebar from './components/PedidoSidebar'
-import PagamentoSidebar from './components/PagamentoSidebar'
+import PedidoSidebar from './components/CheckoutFlow/PedidoSidebar'
+import PagamentoSidebar from './components/CheckoutFlow/PagamentoSidebar'
 import CarrinhoSidebar from './components/CarrinhoSidebar'
-import FormEntrega from './components/FormEntrega'
+import FormEntrega from './components/CheckoutFlow/FormEntrega'
 import { RootState } from './store/store'
 
 const AppContent: React.FC = () => {
@@ -16,13 +16,15 @@ const AppContent: React.FC = () => {
   const [mostrarEntrega, setMostrarEntrega] = useState(false)
   const [mostrarPagamento, setMostrarPagamento] = useState(false)
   const [mostrarPedido, setMostrarPedido] = useState(false)
-  const [orderId, setOrderId] = useState('')
+  const [orderId, setOrderId] = useState<string | null>(null)
+  const handleOrderIdUpdate = (orderId: string | number) => {
+    setOrderId(orderId.toString())
+  }
   const location = useLocation()
 
   // Calcula o total do carrinho a partir do Redux
   const cartItems = useSelector((state: RootState) => state.cart.items)
   const total = cartItems.reduce((sum, item) => sum + item.preco, 0)
-
   const isHome = location.pathname === '/'
 
   return (
@@ -49,8 +51,8 @@ const AppContent: React.FC = () => {
               setMostrarPagamento(false)
               setMostrarEntrega(true)
             }}
-            onFinalizar={() => {
-              setOrderId('123456')
+            onFinalizar={(orderId) => {
+              handleOrderIdUpdate(orderId)
               setSidebarAberto(false)
               setMostrarPagamento(false)
               setMostrarPedido(true)
@@ -76,7 +78,7 @@ const AppContent: React.FC = () => {
       )}
       {mostrarPedido && (
         <PedidoSidebar
-          orderId={orderId}
+          orderId={orderId || ''}
           onClose={() => setMostrarPedido(false)}
         />
       )}

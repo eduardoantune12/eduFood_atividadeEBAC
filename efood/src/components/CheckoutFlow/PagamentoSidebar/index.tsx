@@ -1,25 +1,60 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import * as S from './styles'
 
 type Props = {
     total: number
     onClose: () => void
     onBack: () => void
-    onFinalizar: () => void
+    onFinalizar: (orderId: string | number) => void
 }
 
 const PagamentoSidebar: React.FC<Props> = ({ onClose, onBack, total, onFinalizar }) => {
+    const cart = useSelector((state: any) => state.cart.items)
+    const entrega = useSelector((state: any) => state.checkout.delivery)
+
     const [nomeCartao, setNomeCartao] = useState('')
     const [numeroCartao, setNumeroCartao] = useState('')
     const [cvv, setCvv] = useState('')
     const [mes, setMes] = useState('')
     const [ano, setAno] = useState('')
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        // lógica de pagamento (mock)
-        onFinalizar()
-        onClose()
+
+        const pedido = {
+            products: cart.map((item: any) => ({
+                id: item.id,
+                price: item.preco
+            })),
+            delivery: entrega,
+            payment: {
+                card: {
+                    name: nomeCartao,
+                    number: numeroCartao,
+                    code: Number(cvv),
+                    expires: {
+                        month: Number(mes),
+                        year: Number(ano)
+                    }
+                }
+            }
+        }
+
+        try {
+            const response = await fetch('https://ebac-fake-api.vercel.app/api/efood/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(pedido)
+            })
+
+            const dados = await response.json()
+            const orderId = dados.orderId;
+            onFinalizar(orderId)
+            onClose()
+        } catch (error) {
+            console.error('Erro ao realizar o pedido:', error)
+        }
     }
 
     return (
@@ -76,7 +111,7 @@ const PagamentoSidebar: React.FC<Props> = ({ onClose, onBack, total, onFinalizar
                             />
                         </S.CampoHalf>
                     </S.Row>
-                    <S.Botao type="submit">Finalizar pagamento</S.Botao>
+                    <S.Botao type="submit">Finalizar pedido</S.Botao>
                     <S.BotaoSecundario type="button" onClick={onBack}>
                         Voltar para a edição de endereço
                     </S.BotaoSecundario>

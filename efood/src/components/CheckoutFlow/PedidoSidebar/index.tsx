@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as S from './styles'
 
 type Props = {
@@ -7,10 +7,16 @@ type Props = {
 }
 
 const PedidoSidebar: React.FC<Props> = ({ onClose, orderId }) => {
+    const [orderIdState, setOrderIdState] = useState(orderId)
+
+    useEffect(() => {
+        setOrderIdState(orderId);
+    }, [orderId]);
+
     return (
         <S.Overlay onClick={onClose}>
             <S.Sidebar>
-                <S.Titulo>Pedido realizado - {orderId}</S.Titulo>
+                <S.Titulo>Pedido realizado - {orderIdState}</S.Titulo>
                 <S.Texto>
                     Estamos felizes em informar que seu pedido já está em processo de preparação e, em breve, será entregue no endereço fornecido. <br />
                     <br />
