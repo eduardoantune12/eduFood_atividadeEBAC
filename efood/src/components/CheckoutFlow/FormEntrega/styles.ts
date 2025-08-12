@@ -1,3 +1,4 @@
+import { IMaskInput } from 'react-imask'
 import styled from 'styled-components'
 
 export const Overlay = styled.div`
@@ -41,6 +42,21 @@ export const Row = styled.div`
   gap: 34px;
   margin-bottom: 16px;
   width: 344px;
+`
+
+export const MaskedInput = styled(IMaskInput)`
+  width: 100%;
+  height: 32px;
+  background-color: #FFEBD9;
+  border: none;
+  padding: 8px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #4B4B4B;
+  box-sizing: border-box;
 `
 
 export const CampoHalf = styled.div`

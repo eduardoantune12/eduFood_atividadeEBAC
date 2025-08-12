@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import * as S from './styles'
+import { clearCart } from '../../../store/cartSlice'
 
 type Props = {
     total: number
@@ -12,6 +13,7 @@ type Props = {
 const PagamentoSidebar: React.FC<Props> = ({ onClose, onBack, total, onFinalizar }) => {
     const cart = useSelector((state: any) => state.cart.items)
     const entrega = useSelector((state: any) => state.checkout.delivery)
+    const dispatch = useDispatch()
 
     const [nomeCartao, setNomeCartao] = useState('')
     const [numeroCartao, setNumeroCartao] = useState('')
@@ -25,7 +27,7 @@ const PagamentoSidebar: React.FC<Props> = ({ onClose, onBack, total, onFinalizar
         const pedido = {
             products: cart.map((item: any) => ({
                 id: item.id,
-                price: item.preco
+                price: item.preco,
             })),
             delivery: entrega,
             payment: {
@@ -35,21 +37,23 @@ const PagamentoSidebar: React.FC<Props> = ({ onClose, onBack, total, onFinalizar
                     code: Number(cvv),
                     expires: {
                         month: Number(mes),
-                        year: Number(ano)
-                    }
-                }
-            }
+                        year: Number(ano),
+                    },
+                },
+            },
         }
 
         try {
             const response = await fetch('https://ebac-fake-api.vercel.app/api/efood/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(pedido)
+                body: JSON.stringify(pedido),
             })
 
             const dados = await response.json()
-            const orderId = dados.orderId;
+            const orderId = dados.orderId
+
+            dispatch(clearCart())
             onFinalizar(orderId)
             onClose()
         } catch (error) {
@@ -71,46 +75,59 @@ const PagamentoSidebar: React.FC<Props> = ({ onClose, onBack, total, onFinalizar
                             required
                         />
                     </S.Campo>
+
                     <S.Row>
                         <S.CampoMaior>
                             <S.Label>Número do cartão</S.Label>
-                            <S.Input
-                                type="text"
+                            <S.InputMask
+                                mask="0000 0000 0000 0000"
                                 value={numeroCartao}
-                                onChange={e => setNumeroCartao(e.target.value)}
+                                onAccept={(value: string) => setNumeroCartao(value)}
+                                className={S.Input.styledComponentId} // substitua conforme seu styled-component
+                                unmask={false}
                                 required
                             />
                         </S.CampoMaior>
+
                         <S.CampoMenor>
                             <S.Label>CVV</S.Label>
-                            <S.Input
-                                type="text"
+                            <S.InputMask
+                                mask="000"
                                 value={cvv}
-                                onChange={e => setCvv(e.target.value)}
+                                onAccept={(value: string) => setCvv(value)}
+                                className={S.Input.styledComponentId}
+                                unmask={false}
                                 required
                             />
                         </S.CampoMenor>
                     </S.Row>
+
                     <S.Row>
                         <S.CampoHalf>
                             <S.Label>Mês de vencimento</S.Label>
-                            <S.Input
-                                type="text"
+                            <S.InputMask
+                                mask="00"
                                 value={mes}
-                                onChange={e => setMes(e.target.value)}
+                                onAccept={(value: string) => setMes(value)}
+                                className={S.Input.styledComponentId}
+                                unmask={false}
                                 required
                             />
                         </S.CampoHalf>
+
                         <S.CampoHalf>
                             <S.Label>Ano de vencimento</S.Label>
-                            <S.Input
-                                type="text"
+                            <S.InputMask
+                                mask="0000"
                                 value={ano}
-                                onChange={e => setAno(e.target.value)}
+                                onAccept={(value: string) => setAno(value)}
+                                className={S.Input.styledComponentId}
+                                unmask={false}
                                 required
                             />
                         </S.CampoHalf>
                     </S.Row>
+
                     <S.Botao type="submit">Finalizar pedido</S.Botao>
                     <S.BotaoSecundario type="button" onClick={onBack}>
                         Voltar para a edição de endereço

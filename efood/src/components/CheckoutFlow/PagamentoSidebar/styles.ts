@@ -1,3 +1,4 @@
+import { IMaskInput } from 'react-imask'
 import styled from 'styled-components'
 
 export const Overlay = styled.div`
@@ -68,6 +69,21 @@ export const Label = styled.label`
   line-height: 16px;
   color: #FFEBD9;
   margin-bottom: 4px;
+`
+
+export const InputMask = styled(IMaskInput)`
+  width: 100%;
+  height: 32px;
+  background-color: #FFEBD9;
+  border: none;
+  padding: 8px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #4B4B4B;
+  box-sizing: border-box;
 `
 
 export const Input = styled.input`

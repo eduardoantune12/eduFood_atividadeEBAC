@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
     Container, ListWrapper, Card, CardImage, CardType, CardHeader,
@@ -7,7 +6,6 @@ import {
 } from './styles'
 import FeaturedRestaurantCard from './FeaturedRestaurantCard'
 import starImg from '../../assets/images/estrela.svg'
-import ProdutoModal from '../ProdutoModal'
 
 interface Restaurante {
     id: number
@@ -24,9 +22,6 @@ interface Props {
 
 const RestaurantList: React.FC<Props> = ({ restaurantes }) => {
     const navigate = useNavigate()
-
-    const [modalAberta, setModalAberta] = useState(false)
-    const [idSelecionado, setIdSelecionado] = useState<number | null>(null)
 
     return (
         <Container>
